@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+<h1>Hello </h1>
+  <label for="name">Name:</label><br>
+  <input type="text" id="name" name="name"><br>
+  <label for="password">Password:</label><br>
+  <input type="password" id="password" name="password"><br><br>
+  <input type="submit" id="logIn" value="Log in"><br><br>
+  <p id="demo"></p>
+
+  <script type="text/javascript">
+
+  $(document).on('click', '#logIn', function(){
+    $.ajax({
+      url: "http://localhost:8080/login",
+      type: "POST",
+      data: JSON.stringify({
+        "name": document.getElementById('name').value,
+        "password": document.getElementById('password').value
+      }),
+      contentType: "application/json",
+      // dataType: "json",
+      success: function(data){
+        if (data === true)
+          window.location.pathname = "/ipRange/index.html"
+        else
+          $('#demo').text( "Username or password is not correct" );
+      },
+      error: function( data, textStatus, errorThrown ){
+        // console.log( data );
+      }
+    })
+  })
+
+</script>
+
+  </body>
+</html>
